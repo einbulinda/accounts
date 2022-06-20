@@ -7,7 +7,7 @@ const express = require("express"),
 require("dotenv").config();
 
 // Production
-db.sequelize.sync();
+// db.sequelize.sync();
 
 // This is for Dev only :Starts
 db.sequelize.sync({ force: true }).then(() => {
@@ -46,10 +46,12 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-// simple route
+// Routes
 app.get("/", (req, res) =>
   res.json({ message: "Welcome to Accounts application" })
 );
+require("./app/routes/auth.routes")(app);
+require("./app/routes/test.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 
