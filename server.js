@@ -1,8 +1,37 @@
 const express = require("express"),
   cors = require("cors"),
+  db = require("./app/models"),
+  Role = db.role,
   app = express();
 
 require("dotenv").config();
+
+// Production
+db.sequelize.sync();
+
+// This is for Dev only :Starts
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop & Resync DB");
+  initial();
+});
+
+// Create 3 rows in DB.
+const initial = () => {
+  Role.create({
+    id: 1,
+    name: "user",
+  });
+  Role.create({
+    id: 2,
+    name: "staff",
+  });
+  Role.create({
+    id: 3,
+    name: "admin",
+  });
+};
+
+// This is for Dev only :Ends
 
 var corsOptions = {
   origin: "http://localhost:8000",
