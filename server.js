@@ -7,34 +7,44 @@ const express = require("express"),
 require("dotenv").config();
 
 // Production
-// db.sequelize.sync();
+db.sequelize.sync();
 
 // This is for Dev only :Starts
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop & Resync DB");
-  initial();
-});
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop & Resync DB");
+//   initial();
+// });
 
-// Create 3 rows in DB.
-const initial = () => {
-  Role.create({
-    id: 1,
-    name: "user",
-  });
-  Role.create({
-    id: 2,
-    name: "staff",
-  });
-  Role.create({
-    id: 3,
-    name: "admin",
-  });
-};
+// // Create 3 rows in DB.
+// const initial = () => {
+//   Role.create({
+//     id: 1,
+//     name: "user",
+//   });
+//   Role.create({
+//     id: 2,
+//     name: "staff",
+//   });
+//   Role.create({
+//     id: 3,
+//     name: "admin",
+//   });
+// };
 
 // This is for Dev only :Ends
 
+// CORS
+var whitelist = ["http://localhost:3000", "http://localhost:8080"];
+
 var corsOptions = {
-  origin: "http://localhost:8000",
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not Allowed by CORS..."));
+    }
+  },
+  credentials: true,
 };
 
 // Allow cross site requests

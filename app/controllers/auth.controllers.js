@@ -62,13 +62,14 @@ exports.signin = (req, res) => {
       });
 
       var authorities = [];
-      User.getRoles().then((roles) => {
+      user.getRoles().then((roles) => {
         for (let i = 0; i < roles.length; i++) {
           authorities.push("ROLE_" + roles[i].name.toUpperCase());
         }
         res.status(200).send({
           id: user.id,
           firstName: user.firstName,
+          lastName: user.lastName,
           email: user.email,
           roles: authorities,
           accessToken: token,

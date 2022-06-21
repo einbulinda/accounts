@@ -1,5 +1,5 @@
 require("dotenv").config();
 
-module.export = {
+module.exports = {
   secret: process.env.SECRET,
 };
