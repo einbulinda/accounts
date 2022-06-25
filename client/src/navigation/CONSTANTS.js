@@ -10,4 +10,5 @@ export const url = {
   VAT_RETURN: "/vat-returns",
   PAYE_RETURNS: "/paye-returns",
   EXPENSES: "/expenditure",
+  ADD_ACCOUNT: "/add-account",
 };

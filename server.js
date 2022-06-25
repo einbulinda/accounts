@@ -2,9 +2,10 @@ const express = require("express"),
   cors = require("cors"),
   db = require("./app/models"),
   Role = db.role,
-  app = express();
-
-require("dotenv").config();
+  Category = db.category,
+  app = express(),
+  { PORT, CLIENT_URL, NODE_ENV } = require("./app/constants"),
+  path = require("path");
 
 // Production
 db.sequelize.sync();
@@ -13,9 +14,10 @@ db.sequelize.sync();
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop & Resync DB");
 //   initial();
+//   initialCategories();
 // });
 
-// // Create 3 rows in DB.
+// Create 3 rows in DB.
 // const initial = () => {
 //   Role.create({
 //     id: 1,
@@ -31,10 +33,33 @@ db.sequelize.sync();
 //   });
 // };
 
+// const initialCategories = () => {
+//   [
+//     "Fixed Assets",
+//     "Current Assets",
+//     "Accounts Receivable",
+//     "Cash",
+//     "Current Liabilities",
+//     "Accounts Payable",
+//     "Equity",
+//     "Retained Earnings",
+//     "Long Term Liabilities",
+//     "Income",
+//     "Other Income",
+//     "Cost of Sales",
+//     "Operating Expenses",
+//     "Financial Costs",
+//     "Admin Expenses",
+//     "Other Expenses",
+//   ].forEach((item, index) => {
+//     Category.create({ id: index, name: item });
+//   });
+// };
+
 // This is for Dev only :Ends
 
 // CORS
-var whitelist = ["http://localhost:3000", "http://localhost:8080"];
+var whitelist = [CLIENT_URL];
 
 var corsOptions = {
   origin: (origin, callback) => {
@@ -47,8 +72,14 @@ var corsOptions = {
   credentials: true,
 };
 
+// app.use(cors(corsOptions));
+
 // Allow cross site requests
-app.use(cors(corsOptions));
+if (NODE_ENV === "production") {
+  app.use(cors());
+} else {
+  app.use(cors(corsOptions));
+}
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -56,14 +87,14 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
+if (NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
+
 // Routes
-app.get("/", (req, res) =>
-  res.json({ message: "Welcome to Accounts application" })
-);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/test.routes")(app);
-
-const PORT = process.env.PORT || 8080;
+require("./app/routes/profile.routes")(app);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ==> ${PORT}`);

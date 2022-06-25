@@ -20,6 +20,9 @@ db.sequelize = sequelize;
 
 db.user = require("./user.model")(sequelize, Sequelize);
 db.role = require("./roles.model")(sequelize, Sequelize);
+db.profile = require("./profile.model")(sequelize, Sequelize);
+db.account = require("./accounts.models")(sequelize, Sequelize);
+db.category = require("./categories.models")(sequelize, Sequelize);
 
 // Relationship between roles and users is many to many
 db.role.belongsToMany(db.user, {
@@ -33,7 +36,52 @@ db.user.belongsToMany(db.role, {
   otherKey: "roleId",
 });
 
+// A user can have many companies
+db.user.hasMany(db.profile, {
+  foreignKey: "userId",
+});
+db.profile.belongsTo(db.user);
+
+// Chart of Accounts
+db.user.hasMany(db.account, {
+  foreignKey: "userId",
+});
+db.account.belongsTo(db.user);
+
+// relationship between accounts and categories
+db.category.belongsToMany(db.account, {
+  through: "account_category",
+  foreignKey: "categoryId",
+  otherKey: "accountId",
+});
+
+db.account.belongsToMany(db.category, {
+  through: "account_category",
+  foreignKey: "accountId",
+  otherKey: "categoryId",
+});
+
 // Define available roles options
 db.ROLES = ["user", "admin", "staff"];
+
+// Define Available Categories
+db.CATEGORIES = [
+  "Fixed Assets",
+  "Current Assets",
+  "Accounts Receivable",
+  "Cash",
+  "Current Liabilities",
+  "Accounts Payable",
+  "Equity",
+  "Retained Earnings",
+  "Long Term Liabilities",
+  "Income",
+  "Other Income",
+  "Cost of Sales",
+  "Operating Expenses",
+  "Financial Costs",
+  "Admin Expenses",
+  "Other Expenses",
+];
 
 module.exports = db;

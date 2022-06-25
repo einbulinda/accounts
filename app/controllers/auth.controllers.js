@@ -1,6 +1,5 @@
-const { user } = require("../models");
-
-const db = require("../models"),
+const { user } = require("../models"),
+  db = require("../models"),
   config = require("../config/auth.config"),
   bcrypt = require("bcryptjs"),
   jwt = require("jsonwebtoken"),

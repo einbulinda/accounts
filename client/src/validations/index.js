@@ -15,8 +15,12 @@ export const validate = {
   }),
 
   registerSchema: Yup.object().shape({
-    firstName: Yup.string().min(2).required("First name is Required"),
-    lastName: Yup.string().min(2).required("Last name is Required"),
+    firstName: Yup.string()
+      .min(2, "Please enter a name more than 2 characters")
+      .required("First name is Required"),
+    lastName: Yup.string()
+      .min(2, "Please enter a name more than 2 characters")
+      .required("Last name is Required"),
     email: Yup.string()
       .email("Please enter a valid email.")
       .max(255)
@@ -31,5 +35,23 @@ export const validate = {
       [Yup.ref("password"), null],
       "Confirmation password invalid"
     ),
+  }),
+
+  profileSchema: Yup.object().shape({
+    companyName: Yup.string()
+      .min(2, "Please enter a name more than 2 characters")
+      .required("Enter Company Name"),
+    kraPin: Yup.string()
+      .length(11, "PIN should be 11 characters, first and last being alphabet")
+      .required("Enter KRA PIN"),
+    companyType: Yup.string().required("Please select company type"),
+    yearEnd: Yup.string().required("Please select the year end"),
+    totalShares: Yup.number()
+      .positive()
+      .required("Enter total number of shares"),
+    paidShares: Yup.number().positive().required("Enter number of paid shares"),
+    nominalValue: Yup.number()
+      .positive()
+      .required("Enter the nominal value per share"),
   }),
 };
