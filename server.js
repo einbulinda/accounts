@@ -4,7 +4,7 @@ const express = require("express"),
   Role = db.role,
   Category = db.category,
   app = express(),
-  { PORT, CLIENT_URL, NODE_ENV } = require("./app/constants"),
+  { PORT, CLIENT_URL, NODE_ENV, SERVER_URL } = require("./app/constants"),
   path = require("path");
 
 // Production
@@ -59,7 +59,7 @@ db.sequelize.sync();
 // This is for Dev only :Ends
 
 // CORS
-var whitelist = [CLIENT_URL];
+var whitelist = [CLIENT_URL, SERVER_URL];
 
 var corsOptions = {
   origin: (origin, callback) => {
@@ -72,9 +72,8 @@ var corsOptions = {
   credentials: true,
 };
 
-// app.use(cors(corsOptions));
-
 // Allow cross site requests
+
 if (NODE_ENV === "production") {
   app.use(cors());
 } else {
@@ -95,6 +94,7 @@ if (NODE_ENV === "production") {
 require("./app/routes/auth.routes")(app);
 require("./app/routes/test.routes")(app);
 require("./app/routes/profile.routes")(app);
+require("./app/routes/account.routes")(app);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ==> ${PORT}`);

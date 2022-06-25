@@ -18,3 +18,22 @@ export const createProfileApi = async (profile) => {
     headers: authHeader(),
   });
 };
+
+// Accounts APIs
+export const fetchAccountTypes = async () => {
+  return await axios.get(`${serverUrl}/api/accounts/categories`, {
+    headers: authHeader(),
+  });
+};
+
+export const fetchMainAccounts = async () => {
+  return await axios.get(`${serverUrl}/api/accounts/all-accounts`, {
+    headers: authHeader(),
+  });
+};
+
+export const createAccountApi = async (account) => {
+  return await axios.post(`${serverUrl}/api/accounts/create`, account, {
+    headers: authHeader(),
+  });
+};

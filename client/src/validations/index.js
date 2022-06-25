@@ -54,4 +54,9 @@ export const validate = {
       .positive()
       .required("Enter the nominal value per share"),
   }),
+  accountSchema: Yup.object().shape({
+    accountName: Yup.string().required("Account name is required"),
+    mainAccount: Yup.string().required("Select main account"),
+    category: Yup.string().required("Account category is required"),
+  }),
 };

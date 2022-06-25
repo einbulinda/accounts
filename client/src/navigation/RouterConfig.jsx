@@ -1,6 +1,4 @@
 import { Suspense } from "react";
-import UserAuthPage from "pages/auth/UserAuthPage";
-import DashboardPage from "pages/dashboard/DashboardPage";
 import { useSelector } from "react-redux";
 import {
   BrowserRouter,
@@ -13,6 +11,9 @@ import { url } from "./CONSTANTS";
 import NotFoundPage from "./NotFoundPage";
 import Loading from "./Loading";
 import AddProfile from "pages/profile/AddProfile";
+import UserAuthPage from "pages/auth/UserAuthPage";
+import DashboardPage from "pages/dashboard/DashboardPage";
+import NewAccount from "pages/accounts/NewAccount";
 
 const RouterConfig = () => {
   const { isLoggedIn } = useSelector((state) => state.auth.auth);
@@ -36,6 +37,7 @@ const RouterConfig = () => {
           <Route exact element={<PrivateRoutes />}>
             <Route exact path={url.DASHBOARD} element={<DashboardPage />} />
             <Route exact path={url.ADD_PROFILE} element={<AddProfile />} />
+            <Route exact path={url.ADD_ACCOUNT} element={<NewAccount />} />
           </Route>
 
           {/* Restricted Routes */}

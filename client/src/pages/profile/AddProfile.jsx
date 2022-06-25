@@ -3,21 +3,14 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import AppLayout from "layout/AppLayout";
 import { CustomLink } from "components/CustomLink";
 import { url } from "navigation/CONSTANTS";
-import {
-  Box,
-  Button,
-  Grid,
-  MenuItem,
-  Paper,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Box, Button, Grid, MenuItem, Paper, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { businessTypes, yearEnds } from "data";
 import { useDispatch, useSelector } from "react-redux";
 import { validate } from "validations";
 import { createProfileApi } from "api";
 import { createProfile } from "redux/slices/profileSlice";
+import FormButtons from "components/FormButtons";
 
 const AddProfile = () => {
   const { user } = useSelector((state) => state.auth.auth);
@@ -213,14 +206,7 @@ const AddProfile = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Stack my={3} justifyContent="center" spacing={3} direction="row">
-            <Button variant="contained" color="primary" type="submit">
-              Save Profile
-            </Button>
-            <Button variant="contained" color="secondary" type="reset">
-              Clear Form
-            </Button>
-          </Stack>
+          <FormButtons />
         </Box>
       </Paper>
     </AppLayout>

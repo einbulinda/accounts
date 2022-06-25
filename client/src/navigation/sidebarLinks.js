@@ -18,18 +18,13 @@ export const sidebarLinks = [
     icon: AssignmentIndIcon,
   },
   {
-    path: url.EDIT_PROFILE,
-    title: "Amend Company",
-    icon: ManageAccountsIcon,
-  },
-  {
     path: url.ADD_ACCOUNT,
-    title: "Create Account",
+    title: "Manage Accounts",
     icon: ManageAccountsIcon,
   },
   {
     path: url.VAT_RETURN,
-    title: "VAT Data",
+    title: "VAT Account",
     icon: AccountTreeIcon,
   },
   {

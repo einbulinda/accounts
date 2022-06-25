@@ -17,7 +17,7 @@ export const authSlice = createSlice({
       state.auth.user = payload;
       localStorage.setItem("user", JSON.stringify(payload));
     },
-    authenticate: (state, payload) => {
+    authenticate: (state, { payload }) => {
       state.auth.user = payload;
       state.auth.isLoggedIn = true;
     },
