@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const CompanyProfile = sequelize.define("company_profile", {
+  const CompanyProfile = sequelize.define("company", {
     companyName: {
       type: Sequelize.STRING,
     },

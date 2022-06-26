@@ -18,6 +18,11 @@ export const createProfileApi = async (profile) => {
     headers: authHeader(),
   });
 };
+export const fetchAllProfilesApi = async () => {
+  return await axios.get(`${serverUrl}/api/profile/all-profiles`, {
+    headers: authHeader(),
+  });
+};
 
 // Accounts APIs
 export const fetchAccountTypes = async () => {
@@ -34,6 +39,13 @@ export const fetchMainAccounts = async () => {
 
 export const createAccountApi = async (account) => {
   return await axios.post(`${serverUrl}/api/accounts/create`, account, {
+    headers: authHeader(),
+  });
+};
+
+// VAT APIs
+export const saveVatDataApi = async (vat) => {
+  return await axios.post(`${serverUrl}/api/vat/create`, vat, {
     headers: authHeader(),
   });
 };

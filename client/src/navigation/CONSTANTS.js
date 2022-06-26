@@ -11,4 +11,5 @@ export const url = {
   PAYE_RETURNS: "/paye-returns",
   EXPENSES: "/expenditure",
   ADD_ACCOUNT: "/add-account",
+  ACCOUNTS: "/accounts",
 };

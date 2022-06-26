@@ -1,5 +1,5 @@
 const { authJwt } = require("../middleware"),
-  controller = require("../controllers/profile.controllers");
+  controller = require("../controllers/vat.controllers");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -11,14 +11,8 @@ module.exports = function (app) {
   });
 
   app.post(
-    "/api/profile/create",
+    "/api/vat/create",
     [authJwt.verifyToken, authJwt.isStaffOrAdmin],
-    controller.createProfile
-  );
-
-  app.get(
-    "/api/profile/all-profiles",
-    [authJwt.verifyToken, authJwt.isStaffOrAdmin],
-    controller.getAllProfiles
+    controller.createVatData
   );
 };

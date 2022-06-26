@@ -36,7 +36,7 @@ const DashboardHeader = ({ title, navigation, button, ...props }) => {
     <StyledBox>
       <FlexBox mt={2} className="headerHold">
         <FlexBox alignItems="center">
-          {props.icon && <props.icon color="error" fontSize="large" />}
+          {props.icon && <props.icon color="primary" fontSize="large" />}
           <H2 ml={1.5} my="0px" lineHeight="1" whiteSpace="pre">
             {title}
           </H2>

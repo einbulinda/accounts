@@ -47,7 +47,7 @@ const AddProfile = () => {
         icon={BusinessCenterIcon}
         button={
           <CustomLink path={url.PROFILES}>
-            <Button variant="contained" color="error" sx={{ px: "2rem" }}>
+            <Button variant="contained" color="primary" sx={{ px: "2rem" }}>
               All Profiles
             </Button>
           </CustomLink>

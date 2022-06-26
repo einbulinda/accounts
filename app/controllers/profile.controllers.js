@@ -18,3 +18,9 @@ exports.createProfile = (req, res) => {
     })
     .catch((err) => res.status(500).send({ message: err.message }));
 };
+
+exports.getAllProfiles = (req, res) => {
+  Profile.findAll()
+    .then((profiles) => res.status(200).send(profiles))
+    .catch((err) => res.status(500).send({ message: err.message }));
+};

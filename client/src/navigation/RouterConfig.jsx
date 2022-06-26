@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { useSelector } from "react-redux";
 import {
   BrowserRouter,
@@ -10,10 +10,13 @@ import {
 import { url } from "./CONSTANTS";
 import NotFoundPage from "./NotFoundPage";
 import Loading from "./Loading";
-import AddProfile from "pages/profile/AddProfile";
-import UserAuthPage from "pages/auth/UserAuthPage";
-import DashboardPage from "pages/dashboard/DashboardPage";
-import NewAccount from "pages/accounts/NewAccount";
+
+// Pages
+const AddProfile = lazy(() => import("pages/profile/AddProfile"));
+const UserAuthPage = lazy(() => import("pages/auth/UserAuthPage"));
+const DashboardPage = lazy(() => import("pages/dashboard/DashboardPage"));
+const NewAccount = lazy(() => import("pages/accounts/NewAccount"));
+const AddVatData = lazy(() => import("pages/vat/AddVatData"));
 
 const RouterConfig = () => {
   const { isLoggedIn } = useSelector((state) => state.auth.auth);
@@ -38,6 +41,7 @@ const RouterConfig = () => {
             <Route exact path={url.DASHBOARD} element={<DashboardPage />} />
             <Route exact path={url.ADD_PROFILE} element={<AddProfile />} />
             <Route exact path={url.ADD_ACCOUNT} element={<NewAccount />} />
+            <Route exact path={url.VAT_RETURN} element={<AddVatData />} />
           </Route>
 
           {/* Restricted Routes */}

@@ -37,6 +37,7 @@ export const validate = {
     ),
   }),
 
+  // Company Profile
   profileSchema: Yup.object().shape({
     companyName: Yup.string()
       .min(2, "Please enter a name more than 2 characters")
@@ -58,5 +59,39 @@ export const validate = {
     accountName: Yup.string().required("Account name is required"),
     mainAccount: Yup.string().required("Select main account"),
     category: Yup.string().required("Account category is required"),
+  }),
+
+  // VAT Records
+  vatSchema: Yup.object().shape({
+    companyId: Yup.string().required("Select Company"),
+    year: Yup.number()
+      .positive()
+      .min(2015, "Cannot be a year before 2015")
+      .required("Enter VAT year."),
+    month: Yup.string().required("Select VAT month"),
+    genSales: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Sales @ 16% required"),
+    reducedSales: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Sales @ 12% required"),
+    zeroSales: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Sales @ 0% required"),
+    exemptSales: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Exempt sames required"),
+    genPurchase: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Purchases @ 16% required"),
+    reducedPurchases: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Purchases @ 12% required"),
+    exemptPurchases: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Purchases @ 0% required"),
+    zeroPurchases: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Exempt purchases required"),
   }),
 };

@@ -27,7 +27,7 @@ import {
 } from "redux/slices/accountSlice";
 
 const mapState = ({ auth, accounts }) => ({
-  user: auth.auth,
+  user: auth.auth.user,
   categories: accounts.categories,
   accounts: accounts.accounts,
 });
@@ -47,8 +47,7 @@ const NewAccount = () => {
     },
     validationSchema: accountSchema,
     onSubmit: async (info, { resetForm }) => {
-      info.userId = user.user.payload.id;
-      console.log(info);
+      info.userId = user.id;
 
       try {
         const { data } = await createAccountApi(info);
@@ -94,7 +93,7 @@ const NewAccount = () => {
         title="Create New Account"
         icon={AccountTreeIcon}
         button={
-          <CustomLink path={url.PROFILES}>
+          <CustomLink path={url.ACCOUNTS}>
             <Button variant="contained" color="error" sx={{ px: "2rem" }}>
               Chart of Accounts
             </Button>
