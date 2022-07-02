@@ -24,6 +24,7 @@ db.profile = require("./profile.model")(sequelize, Sequelize);
 db.account = require("./accounts.models")(sequelize, Sequelize);
 db.category = require("./categories.models")(sequelize, Sequelize);
 db.vat = require("./vat.models")(sequelize, Sequelize);
+db.salaries = require("./salaries.models")(sequelize, Sequelize);
 
 // Relationship between roles and users is many to many
 db.role.belongsToMany(db.user, {

@@ -17,6 +17,7 @@ const UserAuthPage = lazy(() => import("pages/auth/UserAuthPage"));
 const DashboardPage = lazy(() => import("pages/dashboard/DashboardPage"));
 const NewAccount = lazy(() => import("pages/accounts/NewAccount"));
 const AddVatData = lazy(() => import("pages/vat/AddVatData"));
+const AddPayePage = lazy(() => import("pages/paye/AddPayePage"));
 
 const RouterConfig = () => {
   const { isLoggedIn } = useSelector((state) => state.auth.auth);
@@ -42,6 +43,7 @@ const RouterConfig = () => {
             <Route exact path={url.ADD_PROFILE} element={<AddProfile />} />
             <Route exact path={url.ADD_ACCOUNT} element={<NewAccount />} />
             <Route exact path={url.VAT_RETURN} element={<AddVatData />} />
+            <Route exact path={url.ADD_PAYE} element={<AddPayePage />} />
           </Route>
 
           {/* Restricted Routes */}

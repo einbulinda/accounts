@@ -1,5 +1,4 @@
-const { vat } = require("../models"),
-  db = require("../models"),
+const db = require("../models"),
   Vat = db.vat;
 
 exports.createVatData = (req, res) => {

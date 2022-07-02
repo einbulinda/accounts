@@ -94,4 +94,47 @@ export const validate = {
       .min(0, "Cannot be a negative number")
       .required("Exempt purchases required"),
   }),
+  salariesSchema: Yup.object().shape({
+    companyId: Yup.string().required("Select Company"),
+    year: Yup.number()
+      .positive()
+      .min(2015, "Cannot be a year before 2015")
+      .required("Enter year of income."),
+    jan: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+    feb: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+    mar: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+    apr: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+    may: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+    jun: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+    jul: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+    aug: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+    sep: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+    oct: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+    nov: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+    dec: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+  }),
 };

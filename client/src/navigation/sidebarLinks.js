@@ -28,7 +28,7 @@ export const sidebarLinks = [
     icon: AccountTreeIcon,
   },
   {
-    path: url.PAYE_RETURNS,
+    path: url.ADD_PAYE,
     title: "PAYE Data",
     icon: MoneyIcon,
   },

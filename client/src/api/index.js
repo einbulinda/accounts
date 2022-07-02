@@ -49,3 +49,10 @@ export const saveVatDataApi = async (vat) => {
     headers: authHeader(),
   });
 };
+
+// Salaries APIs
+export const createSalariesApi = async (salaries) => {
+  return await axios.post(`${serverUrl}/api/salaries/create`, salaries, {
+    headers: authHeader(),
+  });
+};
