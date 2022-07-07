@@ -59,7 +59,7 @@ const AddPayePage = () => {
       salaries.userId = user.id;
 
       try {
-        const { data } = createSalariesApi(salaries);
+        const { data } = await createSalariesApi(salaries);
 
         dispatch(postSalaries(data));
         setMessage("Salaries posted successfully");

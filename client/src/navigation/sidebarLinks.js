@@ -33,7 +33,7 @@ export const sidebarLinks = [
     icon: MoneyIcon,
   },
   {
-    path: url.EXPENSES,
+    path: url.ADD_EXPENSES,
     title: "Expenses",
     icon: MoneyOffIcon,
   },

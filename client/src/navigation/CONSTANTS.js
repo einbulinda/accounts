@@ -10,7 +10,7 @@ export const url = {
   VAT_RETURN: "/vat-returns",
   ADD_PAYE: "/add-paye",
   ALL_PAYE: "/all-paye",
-  EXPENSES: "/expenditure",
+  ADD_EXPENSES: "/add-expenditures",
   ADD_ACCOUNT: "/add-account",
   ACCOUNTS: "/accounts",
 };

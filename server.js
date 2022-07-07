@@ -97,6 +97,7 @@ require("./app/routes/profile.routes")(app);
 require("./app/routes/account.routes")(app);
 require("./app/routes/vat.routes")(app);
 require("./app/routes/salaries.routes")(app);
+require("./app/routes/expenses.routes")(app);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ==> ${PORT}`);

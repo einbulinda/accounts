@@ -57,7 +57,13 @@ export const validate = {
   }),
   accountSchema: Yup.object().shape({
     accountName: Yup.string().required("Account name is required"),
-    mainAccount: Yup.string().required("Select main account"),
+    showMain: Yup.boolean(),
+    mainAccount: Yup.string().when("showMain", {
+      is: true,
+      then: Yup.string().required(
+        "Please select Main Account"
+      ) /*Chack conditional Validation based on checkbox selection*/,
+    }),
     category: Yup.string().required("Account category is required"),
   }),
 
@@ -134,6 +140,17 @@ export const validate = {
       .min(0, "Cannot be a negative number")
       .required("Enter a numeric value"),
     dec: Yup.number()
+      .min(0, "Cannot be a negative number")
+      .required("Enter a numeric value"),
+  }),
+  expenseSchema: Yup.object().shape({
+    companyId: Yup.string().required("Select Company"),
+    year: Yup.number()
+      .positive()
+      .min(2015, "Cannot be a year before 2015")
+      .required("Enter year of income."),
+    accountId: Yup.string().required("Select an expense account"),
+    amount: Yup.number()
       .min(0, "Cannot be a negative number")
       .required("Enter a numeric value"),
   }),

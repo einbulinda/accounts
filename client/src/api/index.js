@@ -56,3 +56,16 @@ export const createSalariesApi = async (salaries) => {
     headers: authHeader(),
   });
 };
+
+// expenses APIS
+export const createExpenseApi = async (expense) => {
+  return await axios.post(`${serverUrl}/api/expense/create`, expense, {
+    headers: authHeader(),
+  });
+};
+
+export const fetchAllExpensesApi = async () => {
+  return await axios.get(`${serverUrl}/api/expenses/all-expenses`, {
+    headers: authHeader(),
+  });
+};

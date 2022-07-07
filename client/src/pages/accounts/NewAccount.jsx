@@ -43,11 +43,13 @@ const NewAccount = () => {
     initialValues: {
       accountName: "",
       mainAccount: "",
+      showMain: false,
       category: "",
     },
     validationSchema: accountSchema,
     onSubmit: async (info, { resetForm }) => {
       info.userId = user.id;
+      console.log(info);
 
       try {
         const { data } = await createAccountApi(info);
@@ -77,7 +79,7 @@ const NewAccount = () => {
       const { data } = await fetchMainAccounts();
       dispatch(allAccounts(data));
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 
@@ -155,6 +157,8 @@ const NewAccount = () => {
                 <FormControlLabel
                   control={
                     <Checkbox
+                      name="showMain"
+                      value={main}
                       checked={main}
                       onChange={(e) => setMain(e.target.checked)}
                     />
@@ -166,7 +170,7 @@ const NewAccount = () => {
             <Grid item sm={6} xs={8}>
               {main && (
                 <Fragment>
-                  {accounts.length > 0 ? (
+                  {accounts && accounts.length > 0 ? (
                     <TextField
                       fullWidth
                       id="mainAccount"

@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import accountSlice from "./slices/accountSlice";
 import authSlice from "./slices/authSlice";
+import expenseSlice from "./slices/expenseSlice";
 import profileSlice from "./slices/profileSlice";
 import salariesSlice from "./slices/salariesSlice";
 import vatSlice from "./slices/vatSlice";
@@ -12,5 +13,6 @@ export const store = configureStore({
     accounts: accountSlice,
     vat: vatSlice,
     salaries: salariesSlice,
+    expenses: expenseSlice,
   },
 });
