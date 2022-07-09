@@ -44,6 +44,7 @@ const mapState = ({ auth, profile, accounts, expenses }) => ({
 const AddExpenses = () => {
   const { profiles, user, accounts, expenses } = useSelector(mapState);
   const [page, setPage] = useState(0);
+  const [company, setCompany] = useState(null);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const dispatch = useDispatch();
   const { expenseSchema } = validate;
@@ -68,6 +69,10 @@ const AddExpenses = () => {
       resetForm();
     },
   });
+
+  const companyExpenses = expenses.filter(
+    (value) => value.companyId === formik.values.companyId
+  );
 
   const getProfiles = async () => {
     try {
@@ -260,57 +265,62 @@ const AddExpenses = () => {
             </Grid>
           </Grid>
         </Box>
-        <Paper sx={{ overflow: "hidden" }}>
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableHead>
-              <TableBody>
-                {expenses
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((expense) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={expense.expenseId}
+        {formik.values.companyId && (
+          <Paper sx={{ overflow: "hidden" }}>
+            <TableContainer sx={{ maxHeight: 440 }}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
                       >
-                        {columns.map((column) => {
-                          const value = expense[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === "number"
-                                ? column.format(value)
-                                : value}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 15, 25]}
-            component="div"
-            count={expenses.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={onPageChange}
-            onRowsPerPageChange={changeRowsPerPage}
-          />
-        </Paper>
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {companyExpenses
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((expense) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={expense.expenseId}
+                        >
+                          {columns.map((column) => {
+                            const value = expense[column.id];
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 15, 25]}
+              component="div"
+              count={expenses.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={onPageChange}
+              onRowsPerPageChange={changeRowsPerPage}
+            />
+          </Paper>
+        )}
       </Paper>
     </AppLayout>
   );
