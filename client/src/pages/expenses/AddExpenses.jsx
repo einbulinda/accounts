@@ -44,7 +44,6 @@ const mapState = ({ auth, profile, accounts, expenses }) => ({
 const AddExpenses = () => {
   const { profiles, user, accounts, expenses } = useSelector(mapState);
   const [page, setPage] = useState(0);
-  const [company, setCompany] = useState(null);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const dispatch = useDispatch();
   const { expenseSchema } = validate;
@@ -63,6 +62,7 @@ const AddExpenses = () => {
       try {
         const { data } = await createExpenseApi(expense);
         dispatch(createExpense(data));
+        getExpenses();
       } catch (error) {
         console.log(error.message);
       }
