@@ -1,11 +1,18 @@
-import { Box } from "@mui/system";
+import Box from "@mui/system/Box";
 import { SideNavContainer } from "components/SideNavContainer";
 import { sidebarLinks } from "navigation/sidebarLinks";
-import { Button, Grid, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import { CustomLink } from "components/CustomLink";
 import FlexBox from "components/FlexBox";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "redux/slices/authSlice";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const SideNav = () => {
+  const dispatch = useDispatch();
+
   return (
     <SideNavContainer
       sx={{ px: "0.8rem", py: "1.5rem", color: "grey.900", height: "90vh" }}
@@ -38,7 +45,12 @@ const SideNav = () => {
             </Grid>
           </Grid>
         ))}
-        <Button sx={{}}>Log Out</Button>
+        <Button
+          startIcon={<LogoutIcon />}
+          onClick={() => dispatch(logoutUser())}
+        >
+          Log Out
+        </Button>
       </Box>
     </SideNavContainer>
   );
