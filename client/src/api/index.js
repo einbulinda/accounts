@@ -18,6 +18,12 @@ export const createProfileApi = async (profile) => {
     headers: authHeader(),
   });
 };
+
+export const updateProfileApi = async (update) => {
+  return await axios.patch(`${serverUrl}/api/profile/update`, update, {
+    headers: authHeader(),
+  });
+};
 export const fetchAllProfilesApi = async () => {
   return await axios.get(`${serverUrl}/api/profile/all-profiles`, {
     headers: authHeader(),

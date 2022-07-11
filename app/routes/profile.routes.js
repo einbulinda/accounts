@@ -21,4 +21,10 @@ module.exports = function (app) {
     [authJwt.verifyToken, authJwt.isStaffOrAdmin],
     controller.getAllProfiles
   );
+
+  app.patch(
+    "/api/profile/update",
+    [authJwt.verifyToken, authJwt.isStaffOrAdmin],
+    controller.updateProfile
+  );
 };

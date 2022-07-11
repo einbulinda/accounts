@@ -5,6 +5,8 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import MoneyIcon from "@mui/icons-material/Money";
 import MoneyOffIcon from "@mui/icons-material/MoneyOff";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 export const sidebarLinks = [
   {
@@ -14,7 +16,7 @@ export const sidebarLinks = [
   },
   {
     path: url.ADD_PROFILE,
-    title: "New Company",
+    title: "Clients",
     icon: AssignmentIndIcon,
   },
   {
@@ -36,6 +38,16 @@ export const sidebarLinks = [
     path: url.ADD_EXPENSES,
     title: "Expenses",
     icon: MoneyOffIcon,
+  },
+  {
+    path: url.NEW_ASSETS,
+    title: "Fixed Assets",
+    icon: ApartmentIcon,
+  },
+  {
+    path: url.SETTINGS,
+    title: "Settings",
+    icon: SettingsIcon,
   },
 ];
 // Have menu for accounts having the different sets of books as drop down menus

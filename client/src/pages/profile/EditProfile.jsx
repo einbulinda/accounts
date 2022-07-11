@@ -1,83 +1,76 @@
+import { Button, Grid, MenuItem, Paper, TextField } from "@mui/material";
+import { Box } from "@mui/system";
+import { fetchAllProfilesApi, updateProfileApi } from "api";
 import DashboardHeader from "components/DashboardHeader";
-import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import { useFormik } from "formik";
 import AppLayout from "layout/AppLayout";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { fetchProfiles, updateProfile } from "redux/slices/profileSlice";
+import { validate } from "validations";
+import EditIcon from "@mui/icons-material/Edit";
 import { CustomLink } from "components/CustomLink";
 import { url } from "navigation/CONSTANTS";
-import { Box, Button, Grid, MenuItem, Paper, TextField } from "@mui/material";
-import { useFormik } from "formik";
 import { businessTypes, yearEnds } from "data";
-import { useDispatch, useSelector } from "react-redux";
-import { validate } from "validations";
-import { createProfileApi, fetchAllProfilesApi } from "api";
-import { createProfile, fetchProfiles } from "redux/slices/profileSlice";
 import FormButtons from "components/FormButtons";
-import CustomTable from "components/CustomTable";
-import { useEffect } from "react";
 
 const mapState = ({ auth, profile }) => ({
   user: auth.auth.user,
-  profiles: profile.profiles,
+  profile: profile.profiles,
 });
 
-const AddProfile = () => {
-  const { user, profiles } = useSelector(mapState);
-  const { profileSchema } = validate;
+const EditProfile = () => {
   const dispatch = useDispatch();
+  const { user, profile } = useSelector(mapState);
+  const navigate = useNavigate();
+  const { profileSchema } = validate;
+  const { id } = useParams();
+  const client = profile.filter((value) => value.id === Number(id));
+
   const formik = useFormik({
     initialValues: {
-      companyName: "",
-      kraPin: "",
-      companyType: "",
-      yearEnd: "",
-      totalShares: "",
-      paidShares: "",
-      nominalValue: "",
+      companyName: client[0].companyName,
+      kraPin: client[0].kraPin,
+      companyType: client[0].companyType,
+      yearEnd: client[0].yearEnd,
+      totalShares: client[0].totalShares,
+      paidShares: client[0].paidShares,
+      nominalValue: client[0].nominalValue,
     },
     validationSchema: profileSchema,
-    onSubmit: async (profile, { resetForm }) => {
-      profile.userId = user.id;
-
+    onSubmit: async (update) => {
+      update.id = Number(id);
+      update.userId = user.id;
       try {
-        const { data } = await createProfileApi(profile);
-        dispatch(createProfile(data));
-        resetForm();
+        const { data } = await updateProfileApi(update);
+        dispatch(updateProfile(data));
+        getProfiles();
+        navigate(url.PROFILES);
       } catch (error) {
         console.log(error.message);
       }
     },
   });
 
-  const columns = [
-    { id: "companyName", label: "Client Name", minWidth: 50 },
-    { id: "kraPin", label: "KRA PIN", minWidth: 50 },
-    { id: "yearEnd", label: "Accounting Period", minWidth: 50 },
-    {
-      id: "shares",
-      label: "Share Capital",
-      minWidth: 40,
-      format: (value) => value.toLocaleString("en-US"),
-    },
-    { id: "action", label: "Action", minWidth: 100 },
-  ];
-
+  const getProfiles = async () => {
+    try {
+      const { data } = await fetchAllProfilesApi();
+      dispatch(fetchProfiles(data));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   useEffect(() => {
-    const getProfiles = async () => {
-      try {
-        const { data } = await fetchAllProfilesApi();
-        dispatch(fetchProfiles(data));
-      } catch (error) {
-        console.warn(error.message);
-      }
-    };
     getProfiles();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <AppLayout>
       <DashboardHeader
-        title="New Client Profile"
-        icon={BusinessCenterIcon}
+        title={`Editing ${client[0].companyName}`}
+        icon={EditIcon}
         button={
           <CustomLink path={url.PROFILES}>
             <Button variant="contained" color="primary" sx={{ px: "2rem" }}>
@@ -242,10 +235,8 @@ const AddProfile = () => {
           <FormButtons />
         </Box>
       </Paper>
-
-      <CustomTable items={profiles} columns={columns} url="/edit-profile" />
     </AppLayout>
   );
 };
 
-export default AddProfile;
+export default EditProfile;
