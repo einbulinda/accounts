@@ -1,10 +1,12 @@
 import { Container, Grid } from "@mui/material";
 import React from "react";
 import SideNav from "components/SideNav";
+import Navbar from "components/Navbar";
 
 const AppLayout = ({ children }) => {
   return (
-    <Container maxWidth="xl" sx={{ p: 2 }}>
+    <Container maxWidth="xl">
+      <Navbar />
       <Grid container spacing={2}>
         <Grid
           item
