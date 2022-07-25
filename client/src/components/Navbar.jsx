@@ -18,16 +18,24 @@ import { menus } from "navigation/menuLinks";
 import { useDispatch, useSelector } from "react-redux";
 import { stringAvatar } from "services/helpers.functions";
 import { logoutUser } from "redux/slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.auth.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [navMenu, setNavMenu] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const username = `${user.firstName} ${user.lastName}`;
 
-  const handleCloseNavMenu = () => setNavMenu(null);
-  const handleCloseUserMenu = () => setAnchorElUser(null);
+  const handleCloseNavMenu = (path) => {
+    navigate(path);
+    setNavMenu(null);
+  };
+  const handleCloseUserMenu = (path) => {
+    navigate(path);
+    setAnchorElUser(null);
+  };
 
   const handleOpenNavMenu = (e) => {
     setNavMenu(e.currentTarget);
@@ -86,7 +94,10 @@ const Navbar = () => {
               {menus
                 .filter((menu) => menu.type !== "user")
                 .map((page) => (
-                  <MenuItem key={page.path} onClick={handleCloseNavMenu}>
+                  <MenuItem
+                    key={page.path}
+                    onClick={() => handleCloseNavMenu(page.path)}
+                  >
                     <Typography textAlign="center">{page.title}</Typography>
                   </MenuItem>
                 ))}
@@ -103,7 +114,7 @@ const Navbar = () => {
             href="/"
             sx={{
               mr: 2,
-              display: { xs: "flex", md: "none" },
+              display: { xs: "flex", md: "none", textAlign: "center" },
               flexGrow: 1,
               fontFamily: "monospace",
               fontWeight: 700,
@@ -112,7 +123,7 @@ const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            ANNUAL ACCOUNTS
+            ANNUAL <br /> ACCOUNTS
           </Typography>
           {/* MD Main Menus */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -121,7 +132,7 @@ const Navbar = () => {
               .map((page) => (
                 <Button
                   key={page.path}
-                  onClick={handleCloseNavMenu}
+                  onClick={() => handleCloseNavMenu(page.path)}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
                   {page.title}
@@ -151,7 +162,10 @@ const Navbar = () => {
               {menus
                 .filter((menu) => menu.type === "user")
                 .map((setting) => (
-                  <MenuItem key={setting.path} onClick={handleOpenNavMenu}>
+                  <MenuItem
+                    key={setting.path}
+                    onClick={() => handleCloseUserMenu(setting.path)}
+                  >
                     <Typography textAlign="center">{setting.title}</Typography>
                   </MenuItem>
                 ))}

@@ -1,8 +1,15 @@
 import axios from "axios";
 import authHeader from "services/authHeader";
 axios.defaults.withCredentials = true;
+require("dotenv").config();
 
-const serverUrl = "http://localhost:8080"; // change to http://annual-accounts.co.ke before running build file.
+let serverUrl = null;
+
+if (process.env.NODE_ENV === "development") {
+  serverUrl = "http://localhost:8080";
+} else {
+  serverUrl = "http://annual-accounts.co.ke";
+}
 
 export const registerUserApi = async (regData) => {
   return await axios.post(`${serverUrl}/api/auth/signup`, regData);
@@ -72,6 +79,13 @@ export const createExpenseApi = async (expense) => {
 
 export const fetchAllExpensesApi = async () => {
   return await axios.get(`${serverUrl}/api/expenses/all-expenses`, {
+    headers: authHeader(),
+  });
+};
+
+// Statements
+export const generateIncomeStatementApi = async (info) => {
+  return await axios.get(`${serverUrl}/api/statements/income-statement`, info, {
     headers: authHeader(),
   });
 };

@@ -23,6 +23,9 @@ const AddAssets = lazy(() => import("pages/ppe/AddAssets"));
 const SettingsPage = lazy(() => import("pages/settings/SettingsPage"));
 const AllProfiles = lazy(() => import("pages/profile/AllProfiles"));
 const EditProfile = lazy(() => import("pages/profile/EditProfile"));
+const IncomeStatement = lazy(() =>
+  import("pages/incomeStatement/IncomeStatement")
+);
 
 const RouterConfig = () => {
   const { isLoggedIn } = useSelector((state) => state.auth.auth);
@@ -54,6 +57,11 @@ const RouterConfig = () => {
             <Route exact path={url.ADD_EXPENSES} element={<AddExpenses />} />
             <Route exact path={url.NEW_ASSETS} element={<AddAssets />} />
             <Route exact path={url.SETTINGS} element={<SettingsPage />} />
+            <Route
+              exact
+              path={url.INCOME_STATEMENT}
+              element={<IncomeStatement />}
+            />
           </Route>
 
           {/* Restricted Routes */}

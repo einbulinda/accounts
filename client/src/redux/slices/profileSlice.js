@@ -24,10 +24,18 @@ export const profileSlice = createSlice({
     updateProfile: (state, { payload }) => {
       state.profiles = [...payload];
     },
+    selectProfile: (state, { payload }) => {
+      state.profile.data = payload;
+    },
   },
 });
 
-export const { createProfile, fetchProfile, fetchProfiles, updateProfile } =
-  profileSlice.actions;
+export const {
+  createProfile,
+  fetchProfile,
+  fetchProfiles,
+  updateProfile,
+  selectProfile,
+} = profileSlice.actions;
 
 export default profileSlice.reducer;

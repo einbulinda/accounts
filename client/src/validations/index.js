@@ -154,4 +154,11 @@ export const validate = {
       .min(0, "Cannot be a negative number")
       .required("Enter a numeric value"),
   }),
+  selectCompanySchema: Yup.object().shape({
+    companyId: Yup.string().required("Select Company"),
+    year: Yup.number()
+      .positive()
+      .min(2015, "Cannot be a year before 2015")
+      .required("Enter year of income."),
+  }),
 };

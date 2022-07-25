@@ -23,6 +23,7 @@
     "react-scripts": "5.0.1",
     "sass": "^1.52.3",
     "web-vitals": "^2.1.4",
+    "webfontloader": "^1.6.28",
     "yup": "^0.32.11"
   },
   "scripts": {
